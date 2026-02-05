@@ -1,0 +1,130 @@
+1) From FilenameDate column need to Extract Date part							
+
+a)datepart_1 = RIGHT('OPS Monitoring'[FileNameDate],8)
+
+b)datepart_2 = FORMAT(RIGHT('OPS Monitoring'[FileNameDate],8),"YYYYMMDD")
+c)date part3 = 
+var v1= SEARCH("_p0",'OPS Monitoring'[FileNameDate],1,0)+5
+var v2= MID('OPS Monitoring'[FileNameDate],v1,8)
+return v2
+
+d)date part4 = 
+var v1= SEARCH("_p0",'OPS Monitoring'[FileNameDate],1,0)+5
+var v2= MID('OPS Monitoring'[FileNameDate],(v1),(LEN('OPS Monitoring'[FileNameDate])-v1)+1)
+return v2
+
+
+2) In FilenameDate colu
+	mn if _D means "Dims" _F means "Facts"		
+A)2Q.1 = IF(FIND("_D",'OPS Monitoring'[FileNameDate],1,0),"Dims","Facts")
+b)2q.2 = SWITCH (TRUE(),
+ SEARCH("_D",'OPS Monitoring'[FileNameDate],1,0)=0,"Facts","Dims")
+
+											
+3) From FilenameDate column need to Extract MonthNo,Year part
+a) Q3.1 = 
+VAR V1 = RIGHT('OPS Monitoring'[FileNameDate],8)
+VAR V2 = MID(V1,5,2)
+RETURN V2
+
+year part
+
+a)y1.1(q3) = 
+VAR V1= RIGHT('OPS Monitoring'[FileNameDate],8)
+VAR V2 = MID(V1,1,4)
+RETURN V2
+
+b)Y1.2(q3) = LEFT(RIGHT('OPS Monitoring'[FileNameDate],8),4)
+
+b)m1.2(q3) = LEFT(RIGHT('OPS Monitoring'[FileNameDate],4),2)
+
+						
+4) Based on 3rd point display monthname
+A)q4.1 = FORMAT(DATE(1,'OPS Monitoring'[Q3.1],1),"mmmm")
+b)Q4.2 = SWITCH(TRUE(),
+'OPS Monitoring'[Q3.1]=01,"january",
+'OPS Monitoring'[Q3.1]=02,"feburary",
+'OPS Monitoring'[Q3.1]=03,"march",
+'OPS Monitoring'[Q3.1]=04,"april",
+'OPS Monitoring'[Q3.1]=05,"may",
+'OPS Monitoring'[Q3.1]=06,"june",
+'OPS Monitoring'[Q3.1]=07,"july",
+'OPS Monitoring'[Q3.1]=08,"august",
+'OPS Monitoring'[Q3.1]=09,"september",
+'OPS Monitoring'[Q3.1]=10,"october",
+'OPS Monitoring'[Q3.1]=11,"november","december")
+
+
+
+5) Below are the scenarios
+	A) If Diff column value is 0 then "File Successfully Processed to Blob"
+	B) If Diff column value is 1 then "File Missed " + Diff column + "Times to Blob"
+	C) If Diff column value greater than 1 then "File Missed "+Diff column + "Times 	   to Blob"
+
+a) q5.1 = 
+var v1 = IF('OPS Monitoring'[Diff]=0,"File Successfully Processed to Blob")
+var v2 = IF('OPS Monitoring'[Diff]=1,CONCATENATE("File Missed", CONCATENATE(" ",CONCATENATE('OPS Monitoring'[Diff],CONCATENATE(" ","Times to Blob")))))
+var v3 = IF('OPS Monitoring'[Diff]>1,CONCATENATE("File Missed",CONCATENATE(" ",CONCATENATE('OPS Monitoring'[Diff],CONCATENATE(" ","Times to Blob")))))
+return CONCATENATE(v1,CONCATENATE(v2,v3))
+
+
+b)q5.2 = SWITCH(TRUE(),
+'OPS Monitoring'[Diff]=0,"File Successfully Processed to Blob",
+'OPS Monitoring'[Diff]=1,CONCATENATE("File Missed", CONCATENATE(" ",CONCATENATE('OPS Monitoring'[Diff],CONCATENATE(" ","Times to Blob")))),
+'OPS Monitoring'[Diff]>1,CONCATENATE("File Missed",CONCATENATE(" ",CONCATENATE('OPS Monitoring'[Diff],CONCATENATE(" ","Times to Blob")))))
+
+
+6) Below are the scenarios
+	A) If Filenamedate column contains "F_AR" returns "AR"
+	B) If Filenamedate column contains "F_STF" returns "SFTCOST"
+
+a)q6.1 = 
+VAR V1 =  if(SEARCH("F_AR",'OPS Monitoring'[FileNameDate],1,0),"AR")
+VAR V2 = IF(SEARCH("F_STF",'OPS Monitoring'[FileNameDate],1,0),"SFTCOST")
+RETURN CONCATENATE(V1,V2)
+
+b)Q6.2 = SWITCH(TRUE(),
+SEARCH("F_AR",'OPS Monitoring'[FileNameDate],1,0)<>0,"AR",
+SEARCH("F_STF",'OPS Monitoring'[FileNameDate],1,0)<>0,"SFTCOST")
+
+
+
+
+7) From FilenameDate column display upto P01... like that column name is Filename
+a)Q7.1 = 
+LEFT('OPS Monitoring'[FileNameDate],LEN('OPS Monitoring'[FileNameDate])-9)
+
+b)q7.2 = 
+var v1 = SEARCH("_P0",'OPS Monitoring'[FileNameDate],1,0)
+VAR V2 = MID('OPS Monitoring'[FileNameDate],1,(V1+3))
+RETURN V2
+
+
+8) combine both 1 and 7
+
+a)q8.1 = CONCATENATE('OPS Monitoring'[Q7.1],CONCATENATE("_",'OPS Monitoring'[Q1.1]))
+b)q8.2 = COMBINEVALUES("_",'OPS Monitoring'[Q7.1],'OPS Monitoring'[Q1.1])
+
+
+9) If status for count column is "Count Matched" then 1 else 0
+a)q9.1 = IF('OPS Monitoring'[Status For Count]="COUNT MATCHED",1,0)
+b)q9.2 = SWITCH(TRUE(),
+'OPS Monitoring'[Status For Count]="COUNT MATCHED",1,0)
+
+
+
+10) CTL_FILE_DATE date column format changed to Indian date format
+a)Q10.1 = FORMAT('OPS Monitoring'[CTL_FILE_DATE],"DD/MM/YYYY")
+b)Q10.2 = 
+VAR V1 = RIGHT(LEFT('OPS Monitoring'[CTL_FILE_DATE],4),2)
+VAR V2 = LEFT('OPS Monitoring'[CTL_FILE_DATE],1)
+VAR V3 = RIGHT(LEFT('OPS Monitoring'[CTL_FILE_DATE],9),4)
+VAR V4 = CONCATENATE(V1,CONCATENATE("/",CONCATENATE(0,CONCATENATE(V2,CONCATENATE("/",V3)))))
+RETURN V4
+
+
+11) If CTL_FILE_COUNT column ,DATA_FILE_COUNT column matches then "Count Matched" else "Count Mismatched"(usingexact)
+
+a)Q12.1 = if(EXACT('OPS Monitoring'[CTL_FILE_COUNT],'OPS Monitoring'[DATA_FILE_COUNT]),"count matched","count mismatched")
+b)Q12.2 = SWITCH(TRUE(),
+'OPS Monitoring'[CTL_FILE_COUNT]='OPS Monitoring'[DATA_FILE_COUNT],"Count Matched","Count Mismatched")

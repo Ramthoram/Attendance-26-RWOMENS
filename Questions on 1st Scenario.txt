@@ -1,0 +1,16 @@
+1) From FilenameDate column need to Extract Date part
+2) In FilenameDate column if _D_ means "Dims" _F means "Facts"
+3) From FilenameDate column need to Extract MonthNo,Year part
+4) Based on 3rd point display monthname
+5) Below are the scenarios
+	A) If Diff column value is 0 then "File Successfully Processed to Blob"
+	B) If Diff column value is 1 then "File Missed " + Diff column + "Times to Blob"
+	C) If Diff column value greater than 1 then "File Missed "+Diff column + "Times 	   to Blob"
+6) Below are the scenarios
+	A) If Filenamedate column contains "F_AR" returns "AR"
+	B) If Filenamedate column contains "F_STF" returns "SFTCOST"
+7) From FilenameDate column display upto P01... like that column name is Filename
+8) combine both 1 and 7
+9) If status for count column is "Count Matched" then 1 else 0
+10) CTL_FILE_DATE date column format changed to Indian date format
+11) If CTL_FILE_COUNT column ,DATA_FILE_COUNT column matches then "Count Matched" else "Count Mismatched"(usingexact)

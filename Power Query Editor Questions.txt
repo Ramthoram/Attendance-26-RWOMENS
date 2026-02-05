@@ -1,0 +1,45 @@
+17) In Close and Apply options how many options are there what are those in Tranform data
+18) what is new source option in Transform data ?any difference b/w Getdata and New source?
+19) What is recent Sources option in Transform Data?
+20)Is there any diff b/w Enter data option in Transform data ,In model Enter data option?
+21) What is data source settings option in Transform data?
+22) what are the options available in Refresh Preview in Transform Data
+23) How to rename,Delete,duplicate and reference for particular dataset
+24) What is Advance Editor in Transform data
+25) what are the options are available in Choose Columns in Tranform data
+26) what are the options are available in Remove Columns in Tranform data
+27) what are the options are available in Keep Rows in Tranform data
+28) what are the options are available in Remove Rows in Tranform data
+29) In how many ways we can sort the column
+30)In How many ways we can change the column names
+31)what are the options are available in Split column what are those
+32)In how many ways we can change the data types in transform data?
+33) What is the diff b/w replace values in Home tab and Replace values in Transform tab in Tranform data
+34) what is applied steps?how we can edit the applied step and how to undo previous step and how to delete the current step
+35) how to enable/disable the Formula bar
+36)how to filter the column values in Transform data?
+37) How many options are there in "Use First row as headers" and what are those
+38)how you will see the one dataset is dependent to the other dataset in pictorial representation
+39)what are the options available in Merge Queries and Explain it
+40)what are the options available in Append Queries and Explain it
+41) what is Reverse Rows options in Tranform tab in Transform data
+42) what is count rows option in transform tab
+43) what is Detect data type  option in Tranform tab
+44)what is pivot and unpivot in Transform tab
+45)what are the options are there in move in transform tab
+46)what is convert to list option in Transform tab
+47)what is format option in Transform tab
+48)what is merge columns option in Tranform tab
+49)what is extract option in Transform tab
+50)what is statistics option in transform tab
+51)what is standard option in transform tab
+52)what is Information option in transform tab
+53)what is date,time,duration options in Transform tab
+54)How many options are available in Column from examples in Add column tab
+55)what is custom column and explain with examples in Add column tab
+56)What is Invoke custom Fuction in Add column tab
+57)what is conditional column option in Add column tab
+58)what is Index column and what options are available
+59)what is duplicate column option in Add column tab
+60)what is Query Dependencties option in View tab
+61)In how many ways we can display monthname,monthno,dayno,dayoftheweek,year in transform data?
